@@ -1,8 +1,8 @@
 import { Product } from '@models/product.model'
-import { Injectable, Body } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { ProductRepository } from '@repositories/product.repository'
-import { CreateProductDto } from 'src/dtos/product/create-product.dto'
-import { UpdateProductDto } from 'src/dtos/product/update-product.dto'
+import { CreateProductDto } from '@dtos/product/create.dto'
+import { UpdateProductDto } from '@dtos/product/update.dto'
 
 @Injectable()
 export class ProductService {
@@ -12,6 +12,7 @@ export class ProductService {
         const data = await this.productRepository.findAll()
         return data
     }
+
     async addProduct(productData: CreateProductDto): Promise<Product> {
         const data = await this.productRepository.create(productData)
         return data

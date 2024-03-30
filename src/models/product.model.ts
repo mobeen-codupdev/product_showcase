@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
-import { Reason } from 'src/dtos/product/enums'
+import { Reason } from '@dtos/product/enums'
 
 export type ProductDocument = HydratedDocument<Product>
 
 @Schema({ timestamps: true })
 export class Product {
-
     @Prop({ required: true })
     reporter_name: string
 
@@ -30,7 +29,6 @@ export class Product {
 
     @Prop({ required: true })
     description: string
-    
 }
 
 export const ProductModel = SchemaFactory.createForClass(Product)

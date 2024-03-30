@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common'
 import { Response } from '@interfaces/response'
 import { Product } from '@models/product.model'
+import { CreateProductDto } from '@dtos/product/create.dto'
+import { UpdateProductDto } from '@dtos/product/update.dto'
 import { ProductService } from './product.service'
-import { CreateProductDto } from 'src/dtos/product/create-product.dto'
-import { UpdateProductDto } from 'src/dtos/product/update-product.dto'
 
 @Controller('product')
 export class ProductController {
@@ -20,12 +20,12 @@ export class ProductController {
     }
 
     @Post()
-    async create(@Body() productDto: CreateProductDto): Promise<Product> {
-        try {
-            const data = await this.productService.addProduct(productDto)
-            return data
-        } catch (e) {
-            throw e
+    async create(@Body() productDto: CreateProductDto): Response<Product> {
+        const data = await this.productService.addProduct(productDto)
+        return {
+            success: true,
+            data,
+            message: 'Product has been created successfully',
         }
     }
 
@@ -33,7 +33,15 @@ export class ProductController {
     async update(
         @Param('id') id: string,
         @Body() updateProductDto: UpdateProductDto,
-    ) {
-        return this.productService.updateProduct(id, updateProductDto)
+    ): Response<Product> {
+        const data = await this.productService.updateProduct(
+            id,
+            updateProductDto,
+        )
+        return {
+            success: true,
+            data,
+            message: 'Product has been updated successfully',
+        }
     }
 }

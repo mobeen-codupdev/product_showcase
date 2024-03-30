@@ -25,7 +25,8 @@
             "@repositories/*": ["src/repositories/*"],
             "@validators/*": ["src/validators/*"],
             "@interfaces/*": ["src/interfaces/*"],
-            "@utils/*": ["src/utils/*"]
+            "@utils/*": ["src/utils/*"],
+            "@dtos/*": ["src/dtos/*"]
         }
     }
 }
