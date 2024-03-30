@@ -1,4 +1,4 @@
-import { Model, Document, FilterQuery } from 'mongoose'
+import { Document, FilterQuery, Model } from 'mongoose'
 
 export class GenericRepository<T extends Document> {
     constructor(private readonly model: Model<T>) {}
