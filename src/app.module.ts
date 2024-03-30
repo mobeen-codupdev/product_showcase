@@ -1,10 +1,10 @@
 import { APP_FILTER } from '@nestjs/core'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import { GlobalException } from '@middlewares/global-exception-handler'
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
+import { AppService } from './app.service'
+import { AppController } from './app.controller'
 
 @Module({
     imports: [

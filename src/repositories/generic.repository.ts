@@ -1,7 +1,7 @@
-import { Document, FilterQuery, Model } from 'mongoose'
+import { Document, FilterQuery, Model as MongooseModel } from 'mongoose'
 
 export class GenericRepository<T extends Document> {
-    constructor(private readonly model: Model<T>) {}
+    constructor(private readonly Model: MongooseModel<T>) {}
 
     async findAll(
         filter: FilterQuery<T> = {},
@@ -10,7 +10,7 @@ export class GenericRepository<T extends Document> {
         limit: number | undefined = undefined,
         populate: string[] = [],
     ): Promise<T[]> {
-        let query: any = this.model.find(filter)
+        let query: any = this.Model.find(filter)
 
         if (Object.keys(sort).length > 0) {
             query = query.sort(sort)
@@ -39,7 +39,7 @@ export class GenericRepository<T extends Document> {
         populate: string[] = [],
         lean: boolean = false,
     ): Promise<T | null> {
-        let query: any = this.model.findById(id)
+        let query: any = this.Model.findById(id)
 
         if (Object.keys(sort).length > 0) {
             query = query.sort(sort)
@@ -63,7 +63,7 @@ export class GenericRepository<T extends Document> {
         sort: Record<string, 1 | -1> = {},
         populate: string[] = [],
     ): Promise<T | null> {
-        let query: any = this.model.findOne(filter)
+        let query: any = this.Model.findOne(filter)
 
         if (Object.keys(sort).length > 0) {
             query = query.sort(sort)
@@ -79,7 +79,7 @@ export class GenericRepository<T extends Document> {
     }
 
     async create(item: Partial<T>): Promise<T> {
-        const createdItem = new this.model(item)
+        const createdItem = new this.Model(item)
         return createdItem.save()
     }
 
@@ -88,7 +88,7 @@ export class GenericRepository<T extends Document> {
         item: Partial<T>,
         populateField?: string,
     ): Promise<T | null> {
-        let query: any = this.model.findByIdAndUpdate(id, item, { new: true })
+        let query: any = this.Model.findByIdAndUpdate(id, item, { new: true })
 
         if (populateField) {
             query = query.populate(populateField)
@@ -98,12 +98,14 @@ export class GenericRepository<T extends Document> {
     }
 
     async deleteById(id: string): Promise<T | null> {
-        return this.model.findByIdAndDelete(id).exec()
+        return this.Model.findByIdAndDelete(id).exec()
     }
+
     async deleteOne(filter: FilterQuery<T> = {}): Promise<T | null> {
-        return this.model.findOneAndDelete(filter).exec()
+        return this.Model.findOneAndDelete(filter).exec()
     }
+
     async deleteAll(filter: FilterQuery<T> = {}): Promise<T | null | void> {
-        this.model.deleteMany(filter).exec()
+        this.Model.deleteMany(filter).exec()
     }
 }
