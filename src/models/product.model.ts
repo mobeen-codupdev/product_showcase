@@ -9,4 +9,4 @@ export class Product {
     name: string
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product)
+export const ProductModel = SchemaFactory.createForClass(Product)
