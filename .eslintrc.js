@@ -9,6 +9,9 @@ module.exports = {
     extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
+        'airbnb-base',
+        'airbnb-typescript/base',
+        'prettier',
     ],
     root: true,
     env: {
@@ -30,15 +33,6 @@ module.exports = {
         ],
         '@typescript-eslint/no-use-before-define': 'off',
         'no-console': ['error', { allow: ['warn', 'error'] }],
-        'sort-imports': [
-            'error',
-            {
-                ignoreCase: false,
-                ignoreDeclarationSort: false,
-                ignoreMemberSort: false,
-                memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-                allowSeparatedGroups: false,
-            },
-        ],
+        'class-methods-use-this': 'off',
     },
 }
