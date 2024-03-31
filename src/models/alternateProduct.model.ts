@@ -1,19 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
-import { Reason } from '@dtos/product/enums'
 
-export type ProductDocument = HydratedDocument<Product>
+export type AlternateProductDocument = HydratedDocument<AlternateProduct>
 
 @Schema({ timestamps: true })
-export class Product {
-    @Prop({ required: true })
-    reporterName: string
 
+export class AlternateProduct {
     @Prop({ required: true })
-    reporterEmail: string
-
-    @Prop({ required: true })
-    reason: Reason
+    alternateProductName: string
 
     @Prop({ required: true })
     countryOrigin: string
@@ -22,13 +16,13 @@ export class Product {
     brandSocialSite: string
 
     @Prop({ required: true })
-    productName: string
-
-    @Prop({ required: true })
     brandName: string
 
     @Prop({ required: true })
     description: string
+
+    @Prop({ required: true })
+    productId: BigInteger
 }
 
-export const ProductModel = SchemaFactory.createForClass(Product)
+export const AlternateProductModel = SchemaFactory.createForClass(AlternateProduct)

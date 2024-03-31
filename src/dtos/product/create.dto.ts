@@ -3,26 +3,27 @@ import { Reason } from './enums'
 
 export class CreateProductDto {
     @IsString()
-    reporter_name: string
+    reporterName: string
 
     @IsString()
-    reporter_email: string
+    reporterEmail: string
 
     @IsEnum(Reason)
     reason: Reason
 
     @IsString()
-    country_origin: string
+    countryOrigin: string
 
     @IsString()
-    brand_social_site: string
+    brandSocialSite: string
 
     @IsString()
-    product_name: string
+    productName: string
 
     @IsString()
-    brand_name: string
+    brandName: string
 
     @IsString()
     description: string
+
 }
