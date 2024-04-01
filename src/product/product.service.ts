@@ -18,6 +18,11 @@ export class ProductService {
         return data
     }
 
+    async getProductByName(name: string): Promise<Product> {
+        const data = await this.productRepository.findOne({ productName: name })
+        return data
+    }
+
     async updateProduct(
         id: string,
         updateProductDto: UpdateProductDto,

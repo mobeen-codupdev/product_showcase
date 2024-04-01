@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common'
 import { Response } from '@interfaces/response'
+
 import { Product } from '@models/product.model'
 import { CreateProductDto } from '@dtos/product/create.dto'
 import { UpdateProductDto } from '@dtos/product/update.dto'
@@ -27,6 +28,12 @@ export class ProductController {
             data,
             message: 'Product has been created successfully',
         }
+    }
+
+    @Get(':name')
+    async getProductByName(@Param('name') name: string): Promise<Product> {
+        const data = await this.productService.getProductByName(name)
+        return data
     }
 
     @Put(':id')

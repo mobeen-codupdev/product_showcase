@@ -1,35 +1,72 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator'
+import {
+    IsNotEmpty,
+    IsString,
+    IsArray,
+    ValidateNested,
+    IsEnum,
+} from 'class-validator'
+import { Type } from 'class-transformer'
 import { Reason } from './enums'
 
 export class UpdateProductDto {
-    @IsNotEmpty()
     @IsString()
-    reporter_name: string
+    reporterName: string
 
-    @IsNotEmpty()
     @IsString()
-    reporter_email: string
+    reporterEmail: string
 
     @IsEnum(Reason)
     reason: Reason
 
-    @IsNotEmpty()
     @IsString()
-    country_origin: string
+    countryOrigin: string
 
-    @IsNotEmpty()
     @IsString()
-    brand_social_site: string
+    brandSocialSite: string
 
-    @IsNotEmpty()
     @IsString()
-    product_name: string
+    productName: string
 
-    @IsNotEmpty()
     @IsString()
-    brand_name: string
+    brandName: string
 
-    @IsNotEmpty()
     @IsString()
     description: string
+
+    @IsNotEmpty()
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CreateAlternateProductDto)
+    alternateProducts: CreateAlternateProductDto[]
+}
+
+class CreateAlternateProductDto {
+    @IsNotEmpty()
+    @IsString()
+    alternateProductName: string
+
+    @IsNotEmpty()
+    @IsString()
+    countryOrigin: string
+
+    @IsString()
+    brandSocialSite: string
+
+    @IsString()
+    brandName: string
+
+    @IsNotEmpty()
+    @IsArray()
+    @Type(() => ImageDto)
+    productImages: ImageDto[]
+
+    @IsNotEmpty()
+    @IsArray()
+    @Type(() => ImageDto)
+    brandImages: ImageDto[]
+}
+class ImageDto {
+    @IsNotEmpty()
+    @IsString()
+    url: string
 }

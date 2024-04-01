@@ -3,6 +3,28 @@ import { HydratedDocument } from 'mongoose'
 import { Reason } from '@dtos/product/enums'
 
 export type ProductDocument = HydratedDocument<Product>
+interface Image {
+    url: string
+}
+class AlternateProduct {
+    @Prop({ required: true })
+    alternateProductName: string
+
+    @Prop({ required: true })
+    countryOrigin: string
+
+    @Prop()
+    brandSocialSite: string
+
+    @Prop({ required: true })
+    brandName: string
+
+    @Prop({ required: true, type: [Object] })
+    productImages: Image[]
+
+    @Prop({ required: true, type: [Object] })
+    brandImages: Image[]
+}
 
 @Schema({ timestamps: true })
 export class Product {
@@ -29,6 +51,18 @@ export class Product {
 
     @Prop({ required: true })
     description: string
+
+    @Prop({ required: false })
+    productImageUrl: string
+
+    @Prop({ required: false })
+    brandImageUrl: string
+
+    @Prop({ required: true, type: AlternateProduct })
+    alternateProducts: AlternateProduct
 }
+
+
+
 
 export const ProductModel = SchemaFactory.createForClass(Product)
