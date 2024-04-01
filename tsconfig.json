@@ -28,5 +28,6 @@
             "@utils/*": ["src/utils/*"],
             "@dtos/*": ["src/dtos/*"]
         }
-    }
+    },
+    "exclude": ["boycott_products_frontend"]
 }
