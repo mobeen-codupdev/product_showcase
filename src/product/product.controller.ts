@@ -31,9 +31,13 @@ export class ProductController {
     }
 
     @Get(':name')
-    async getProductByName(@Param('name') name: string): Promise<Product> {
+    async getProductByName(@Param('name') name: string): Response<Product> {
         const data = await this.productService.getProductByName(name)
-        return data
+        return {
+            success: true,
+            data,
+            message: 'Product has been fetched successfully',
+        }
     }
 
     @Put(':id')
