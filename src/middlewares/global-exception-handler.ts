@@ -1,4 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common'
+import * as Sentry from '@sentry/node'
 
 @Catch()
 export class GlobalException implements ExceptionFilter {
@@ -10,6 +11,8 @@ export class GlobalException implements ExceptionFilter {
 
         this.logger.error(exception.message)
 
+        // Capture the exception with Sentry
+        Sentry.captureException(exception)
         response.status(500).json({
             statusCode: 500,
             success: false,

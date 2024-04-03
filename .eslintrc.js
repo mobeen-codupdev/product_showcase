@@ -25,6 +25,7 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'import/prefer-default-export': 'off',
+        'import/no-extraneous-dependencies': 'off',
         'max-classes-per-file': 'off',
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-unused-vars': [
