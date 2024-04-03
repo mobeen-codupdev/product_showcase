@@ -1,11 +1,17 @@
-import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common'
+import {
+    ArgumentsHost,
+    Catch,
+    ExceptionFilter,
+    HttpException,
+    Logger,
+} from '@nestjs/common'
 import * as Sentry from '@sentry/node'
 
 @Catch()
 export class GlobalException implements ExceptionFilter {
     private readonly logger = new Logger(GlobalException.name)
 
-    catch(exception: any, host: ArgumentsHost) {
+    catch(exception: HttpException, host: ArgumentsHost) {
         const ctx = host.switchToHttp()
         const response = ctx.getResponse()
 
