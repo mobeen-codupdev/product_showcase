@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common'
+import { Body, Controller, Get, Post, Param, Put, Query } from '@nestjs/common'
 import { Response } from '@interfaces/response'
 
 import { Product } from '@models/product.model'
@@ -11,8 +11,18 @@ export class ProductController {
     constructor(private readonly productService: ProductService) {}
 
     @Get()
-    async get(): Response<Product[]> {
-        const data = await this.productService.getProducts()
+    async get(
+        @Query('page') page: string,
+        @Query('limit') limit: string,
+        @Query('term') term: string,
+    ): Response<Product[]> {
+        const pageNumber = page ? parseInt(page, 10) : 1
+        const pageLimit = limit ? parseInt(limit, 10) : 5
+        const data = await this.productService.getProducts({
+            page: pageNumber,
+            limit: pageLimit,
+            term,
+        })
         return {
             success: true,
             data,
@@ -30,9 +40,11 @@ export class ProductController {
         }
     }
 
-    @Get(':name')
-    async getProductByName(@Param('name') name: string): Response<Product> {
-        const data = await this.productService.getProductByName(name)
+    @Get(':productId')
+    async getProductById(
+        @Param('productId') productId: string,
+    ): Response<Product> {
+        const data = await this.productService.getProductById(productId)
         return {
             success: true,
             data,

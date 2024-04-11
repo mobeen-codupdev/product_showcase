@@ -21,7 +21,7 @@ function App() {
       <PageMetadata />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/search-results" element={<SearchResults />} />
+        <Route path="/search-results/:id" element={<SearchResults />} />
         <Route path="/submit-brand" element={<SubmitBrand />} />
       </Routes>
     </Router>

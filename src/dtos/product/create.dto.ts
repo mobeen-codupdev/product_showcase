@@ -1,10 +1,4 @@
-import {
-    IsNotEmpty,
-    IsString,
-    IsArray,
-    ValidateNested,
-    IsEnum,
-} from 'class-validator'
+import { IsNotEmpty, IsString, IsArray, IsEnum } from 'class-validator'
 import { Type } from 'class-transformer'
 import { Reason } from './enums'
 

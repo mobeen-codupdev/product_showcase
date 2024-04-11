@@ -62,7 +62,4 @@ export class Product {
     alternateProducts: AlternateProduct
 }
 
-
-
-
 export const ProductModel = SchemaFactory.createForClass(Product)
