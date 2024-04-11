@@ -8,5 +8,7 @@ async function bootstrap() {
     app.setGlobalPrefix('api')
     app.enableCors()
     await app.listen(process.env.PORT || 4000)
+
+    Logger.log(`Server is running on ${process.env.PORT || 4000} `)
 }
 bootstrap()
