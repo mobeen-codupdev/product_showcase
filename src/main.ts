@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import * as mongoose from 'mongoose'
+import { Logger } from '@nestjs/common'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
