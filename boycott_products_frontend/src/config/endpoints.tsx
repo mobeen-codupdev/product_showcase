@@ -1,3 +1,5 @@
-export const GET_USERS_ENDPOINT = "https://jsonplaceholder.typicode.com/users"
+export const API_BASE_URL = process.env.REACT_APP_API_URL
 
-export const GET_PRODUCTS_ENDPOINT = "http://localhost:4000/api/product"
+export const GET_PRODUCTS_ENDPOINT = `${API_BASE_URL}/api/product`
+export const ADD_PRODUCTS_ENDPOINT = `${API_BASE_URL}/api/product`
+

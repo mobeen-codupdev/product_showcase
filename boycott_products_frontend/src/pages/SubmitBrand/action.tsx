@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { ADD_PRODUCT } from '../../config/endpoints'
+import { ADD_PRODUCTS_ENDPOINT } from '../../config/endpoints'
 import { FormValues } from './type'
 
 export const addProduct = createAsyncThunk('addProduct', async (payload: FormValues) => {
-    const response = await fetch(ADD_PRODUCT, {
+    const response = await fetch(ADD_PRODUCTS_ENDPOINT, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

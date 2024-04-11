@@ -195,6 +195,12 @@ const SubmitBrand: React.FC = () => {
                     >
                         Submit for Review
                     </button>
+                    <button
+                        className="mt-10 bg-green-600 hover:bg-green-700 text-white font-medium py-4 px-20 rounded-xl shadow cursor-pointer transition-all duration-300"
+                        onClick={onSubmit}
+                    >
+                        Add Alternate Product
+                    </button>
                 </div>
             </div>
         </div>
