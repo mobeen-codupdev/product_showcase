@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Alert from '@mui/material/Alert'
 import { useAppDispatch } from '../../hooks'
 import { addProduct } from './action'
-// import { productSelector } from './selector'
+import { FormDialog } from '../../components/FormDialog'
 
 const schema = Yup.object().shape({
     description: Yup.string().required('Additional information is required'),
@@ -23,9 +23,10 @@ const schema = Yup.object().shape({
 })
 
 const SubmitBrand: React.FC = () => {
-    // const addprodSelector = useAppSelector(productSelector)
     const dispatch = useAppDispatch()
     const [isError, setIsError] = useState<null | string>(null)
+    const [open, setOpen] = useState<boolean>(false)
+    const [alternateProducts, setAlternateProducts] = useState<FormValues[]>([])
     const [formData, setFormData] = useState<FormValues>({
         reporterName: '',
         reporterEmail: '',
@@ -42,17 +43,25 @@ const SubmitBrand: React.FC = () => {
         >,
     ) => {
         const { name, value } = event.target
-        console.log(name, value)
         setFormData({
             ...formData,
             [name]: value,
         })
     }
+    const handleClose = () => setOpen(!open)
+    const handleAlternateProduct = (product: FormValues) => {
+        setAlternateProducts((prevValues) => [...prevValues, product])
+    }
     const onSubmit = async () => {
         setIsError(null)
+        if (alternateProducts.length === 0) {
+            setOpen(true)
+            return
+        }
         try {
             await schema.validate(formData)
-            dispatch(addProduct(formData))
+            const payload = { ...formData, alternateProducts }
+            dispatch(addProduct(payload))
         } catch (error) {
             const { errors } = JSON.parse(JSON.stringify(error))
             setIsError(errors[0])
@@ -68,7 +77,11 @@ const SubmitBrand: React.FC = () => {
             <div className="relative z-10">
                 {/* Navbar */}
                 <Navbar />
-
+                <FormDialog
+                    open={open}
+                    handleClose={handleClose}
+                    handleAlternateProduct={handleAlternateProduct}
+                />
                 <div className="flex flex-col items-center justify-center py-10">
                     <div className="text-5xl md:text-6xl font-semibold text-orange-600 text-center mb-10 mx-4">
                         Submit a brand for review
@@ -194,12 +207,6 @@ const SubmitBrand: React.FC = () => {
                         onClick={onSubmit}
                     >
                         Submit for Review
-                    </button>
-                    <button
-                        className="mt-10 bg-green-600 hover:bg-green-700 text-white font-medium py-4 px-20 rounded-xl shadow cursor-pointer transition-all duration-300"
-                        onClick={onSubmit}
-                    >
-                        Add Alternate Product
                     </button>
                 </div>
             </div>
